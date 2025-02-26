@@ -50,6 +50,18 @@ tasks.named('test', Test) {
 }
 
 publishing {
+    repositories {
+        maven {
+            name = "central"
+            url = 'https://central.sonatype.com/api/v1/publisher/upload'
+            
+            credentials {
+                username = 'GZLpOoFD'
+                password = 'gf6Fi4JjtPEpo9XCTQdRss7k7qw3wq7nzD3j7JKaR4/w'
+            }
+        }
+    }
+
     publications {
         mavenJava(MavenPublication) {
             artifactId = 'mynamespace'
@@ -78,6 +90,11 @@ publishing {
                         name = 'Shimon Pats'
                         email = 'shimonp21@gmail.com'
                     }
+                }
+                scm {
+                    url = 'https://github.com/botscripter/awesome-project'
+                    connection = 'scm:git://github.com:botscripter/awesome-project.git'
+                    developerConnection = 'scm:git://github.com:botscripter/awesome-project.git'
                 }
             }
         }
