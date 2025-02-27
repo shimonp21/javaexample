@@ -18,11 +18,9 @@ jobs:
       - uses: DeterminateSystems/nix-installer-action@main
       - uses: DeterminateSystems/magic-nix-cache-action@main
 
+      # Gradle build includes 'gradle test'
       - name: Build
         run: ./gradlew build
-
-      - name: Test
-        run: ./gradlew test
 
       - name: Integration Test
         run: echo "ok"
