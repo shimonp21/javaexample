@@ -8,15 +8,13 @@
 plugins {
     // Apply the java-library plugin for API and implementation separation.
     id 'java-library'
-    id 'maven-publish'
+    id "com.vanniktech.maven.publish" version "0.30.0"
     id 'signing'
 }
 
-group = 'io.github.shimonp21'
-version = '1.0'
+import com.vanniktech.maven.publish.SonatypeHost
 
 java {
-    withJavadocJar()
     withSourcesJar()
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
@@ -49,64 +47,34 @@ tasks.named('test', Test) {
     useJUnitPlatform()
 }
 
-publishing {
-    repositories {
-        maven {
-            name = "central"
-            url = 'https://central.sonatype.com/api/v1/publisher/upload'
-            
-            credentials {
-                username = 'GZLpOoFD'
-                password = 'gf6Fi4JjtPEpo9XCTQdRss7k7qw3wq7nzD3j7JKaR4/w'
+
+mavenPublishing {
+    coordinates("io.github.shimonp21", "shimonmynamespace", "1.1.0")
+    signAllPublications()
+
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+
+    pom {
+        name = 'shimonmynamespace'
+        description = 'My description of my library'
+        url = 'github.com/shimonp21/javaexample'
+        licenses {
+            license {
+                name = 'The Apache License, Version 2.0'
+                url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
             }
         }
-    }
-
-    publications {
-        mavenJava(MavenPublication) {
-            artifactId = 'mynamespace'
-            from components.java
-            versionMapping {
-                usage('java-api') {
-                    fromResolutionOf('runtimeClasspath')
-                }
-                usage('java-runtime') {
-                    fromResolutionResult()
-                }
-            }
-            pom {
-                name = 'shimonmynamespace'
-                description = 'My description of my library'
-                url = 'github.com/shimonp21/gp'
-                licenses {
-                    license {
-                        name = 'The Apache License, Version 2.0'
-                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-                developers {
-                    developer {
-                        id = 'shimonp21'
-                        name = 'Shimon Pats'
-                        email = 'shimonp21@gmail.com'
-                    }
-                }
-                scm {
-                    url = 'https://github.com/botscripter/awesome-project'
-                    connection = 'scm:git://github.com:botscripter/awesome-project.git'
-                    developerConnection = 'scm:git://github.com:botscripter/awesome-project.git'
-                }
+        developers {
+            developer {
+                id = 'shimonp21'
+                name = 'Shimon Pats'
+                email = 'shimonp21@gmail.com'
             }
         }
-    }
-}
-
-signing {
-    sign publishing.publications.mavenJava
-}
-
-javadoc {
-    if(JavaVersion.current().isJava9Compatible()) {
-        options.addBooleanOption('html5', true)
+        scm {
+            url = 'github.com/shimonp21/gp'
+            connection = 'scm:git://github.com/shimonp21/javaexample.git'
+            developerConnection = 'scm:git://github.com/shimonp21/javaexample.git'
+        }
     }
 }
