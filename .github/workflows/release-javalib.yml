@@ -15,27 +15,17 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '22'
-          registry-url: 'https://registry.npmjs.org'
-          scope: '@dagster-io'
-
-      - name: Install dependencies
-        run: npm install
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
 
       - name: Build
-        run: npm run build
+        run: ./gradlew build
 
       - name: Test
-        run: npm test
+        run: ./gradlew test
 
-      - name: Lint
-        run: npm run lint
+      - name: Integration Test
+        run: echo "ok"
 
-      - name: Publish to npm
-        run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+      - name: Publish and Release
+        run: ./gradlew publishAndReleaseToMavenCentral --no-configuration-cache

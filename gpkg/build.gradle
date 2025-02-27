@@ -14,6 +14,38 @@ plugins {
 
 import com.vanniktech.maven.publish.SonatypeHost
 
+mavenPublishing {
+    coordinates("io.github.shimonp21", "shimonmynamespace", "1.2.0")
+    signAllPublications()
+
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+
+    pom {
+        name = 'shimonmynamespace'
+        description = 'My description of my library'
+        url = 'github.com/shimonp21/javaexample'
+        licenses {
+            license {
+                name = 'The Apache License, Version 2.0'
+                url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+            }
+        }
+        developers {
+            developer {
+                id = 'shimonp21'
+                name = 'Shimon Pats'
+                email = 'shimonp21@gmail.com'
+            }
+        }
+        scm {
+            url = 'github.com/shimonp21/gp'
+            connection = 'scm:git://github.com/shimonp21/javaexample.git'
+            developerConnection = 'scm:git://github.com/shimonp21/javaexample.git'
+        }
+    }
+}
+
+
 java {
     withSourcesJar()
     toolchain {
@@ -47,34 +79,3 @@ tasks.named('test', Test) {
     useJUnitPlatform()
 }
 
-
-mavenPublishing {
-    coordinates("io.github.shimonp21", "shimonmynamespace", "1.1.0")
-    signAllPublications()
-
-    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
-
-    pom {
-        name = 'shimonmynamespace'
-        description = 'My description of my library'
-        url = 'github.com/shimonp21/javaexample'
-        licenses {
-            license {
-                name = 'The Apache License, Version 2.0'
-                url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-            }
-        }
-        developers {
-            developer {
-                id = 'shimonp21'
-                name = 'Shimon Pats'
-                email = 'shimonp21@gmail.com'
-            }
-        }
-        scm {
-            url = 'github.com/shimonp21/gp'
-            connection = 'scm:git://github.com/shimonp21/javaexample.git'
-            developerConnection = 'scm:git://github.com/shimonp21/javaexample.git'
-        }
-    }
-}
