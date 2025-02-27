@@ -14,7 +14,7 @@ public class ShimonLib {
         logger.warn("hello, warning");
         logger.error("hello, error");
 
-        return x + y;
+        return x - y;
     }
 
     public int myMul(int x, int y) {
